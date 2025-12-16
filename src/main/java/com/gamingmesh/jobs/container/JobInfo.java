@@ -19,6 +19,8 @@
 package com.gamingmesh.jobs.container;
 
 import com.gamingmesh.jobs.Jobs;
+import com.gamingmesh.jobs.hooks.Curvature.CurvatureHook;
+import com.gamingmesh.jobs.hooks.JobsHook;
 
 import net.Zrips.CMILib.Colors.CMIChatColor;
 import net.Zrips.CMILib.Equations.Parser;
@@ -109,7 +111,7 @@ public class JobInfo {
         return basePoints;
     }
 
-    public double getIncome(double level, int numjobs, int maxJobs) {
+    public double getIncome(JobsPlayer jPlayer, double level, int numjobs, int maxJobs) {
         if (softIncomeLevelLimit != null && level > softIncomeLevelLimit)
             level = softIncomeLevelLimit;
         if (baseIncome == 0 || !CurrencyType.MONEY.isEnabled())
@@ -118,10 +120,15 @@ public class JobInfo {
         moneyEquation.setVariable("numjobs", numjobs);
         moneyEquation.setVariable("maxjobs", maxJobs);
         moneyEquation.setVariable("baseincome", baseIncome);
+        applyCurvatureVariables(moneyEquation, jPlayer);
         return moneyEquation.getValue();
     }
 
-    public double getExperience(double level, int numjobs, int maxJobs) {
+    public double getIncome(double level, int numjobs, int maxJobs) {
+        return getIncome(null, level, numjobs, maxJobs);
+    }
+
+    public double getExperience(JobsPlayer jPlayer, double level, int numjobs, int maxJobs) {
         if (softExpLevelLimit != null && level > softExpLevelLimit)
             level = softExpLevelLimit;
         if (baseXp == 0 || !CurrencyType.EXP.isEnabled())
@@ -130,10 +137,15 @@ public class JobInfo {
         xpEquation.setVariable("numjobs", numjobs);
         xpEquation.setVariable("maxjobs", maxJobs);
         xpEquation.setVariable("baseexperience", baseXp);
+        applyCurvatureVariables(xpEquation, jPlayer);
         return xpEquation.getValue();
     }
 
-    public double getPoints(double level, int numjobs, int maxJobs) {
+    public double getExperience(double level, int numjobs, int maxJobs) {
+        return getExperience(null, level, numjobs, maxJobs);
+    }
+
+    public double getPoints(JobsPlayer jPlayer, double level, int numjobs, int maxJobs) {
         if (softPointsLevelLimit != null && level > softPointsLevelLimit)
             level = softPointsLevelLimit;
         if (basePoints == 0 || !CurrencyType.POINTS.isEnabled())
@@ -142,7 +154,21 @@ public class JobInfo {
         pointsEquation.setVariable("numjobs", numjobs);
         pointsEquation.setVariable("maxjobs", maxJobs);
         pointsEquation.setVariable("basepoints", basePoints);
+        applyCurvatureVariables(pointsEquation, jPlayer);
         return pointsEquation.getValue();
+    }
+
+    public double getPoints(double level, int numjobs, int maxJobs) {
+        return getPoints(null, level, numjobs, maxJobs);
+    }
+
+    private void applyCurvatureVariables(Parser parser, JobsPlayer jPlayer) {
+        if (parser == null || jPlayer == null)
+            return;
+
+        CurvatureHook curvatureHook = JobsHook.getCurvatureHook();
+        if (curvatureHook != null)
+            curvatureHook.applyCurveVariables(parser, jPlayer);
     }
 
     public String getConfigPath() {

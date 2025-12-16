@@ -13,6 +13,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<curvature.api.path>${basedir}/libs/CurvatureAPI.jar</curvature.api.path>
 	</properties>
 
 	<dependencies>
@@ -239,6 +240,25 @@
 		<!--<repository> <id>mypet-repo</id> <url>https://repo.mypet-plugin.de/</url>
 			</repositor> -->
 	</repositories>
+	<profiles>
+		<profile>
+			<id>curvature-api</id>
+			<activation>
+				<file>
+					<exists>${curvature.api.path}</exists>
+				</file>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.curvature</groupId>
+					<artifactId>curvature-api</artifactId>
+					<version>LOCAL</version>
+					<scope>system</scope>
+					<systemPath>${curvature.api.path}</systemPath>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 	<!-- Builds Plugin -->
 	<build>
 		<defaultGoal>clean package</defaultGoal>

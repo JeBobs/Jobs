@@ -650,11 +650,10 @@ public final class Jobs extends JavaPlugin {
 	}
 
 	/**
-	 * Checks if the given {@link JobsPlayer} have the given {@link ActionType} in
-	 * one of jobs.
+	 * Checks if the given {@link JobsPlayer} have the given {@link ActionType} in one of jobs.
 	 * 
 	 * @param jPlayer {@link JobsPlayer}
-	 * @param type    {@link ActionType}
+	 * @param type {@link ActionType}
 	 * @return true if the player have the given action
 	 */
 	public static boolean isPlayerHaveAction(JobsPlayer jPlayer, ActionType type) {
@@ -690,7 +689,6 @@ public final class Jobs extends JavaPlugin {
 
 	/**
 	 * Function to get the number of slots used on the server for this job
-	 * 
 	 * @param job - the job
 	 * @return the number of slots
 	 */
@@ -700,7 +698,6 @@ public final class Jobs extends JavaPlugin {
 
 	/**
 	 * Function to increase the number of used slots for a job
-	 * 
 	 * @param job - the job someone is taking
 	 */
 	public static void takeSlot(Job job) {
@@ -711,7 +708,6 @@ public final class Jobs extends JavaPlugin {
 
 	/**
 	 * Function to decrease the number of used slots for a job
-	 * 
 	 * @param job - the job someone is leaving
 	 */
 	public static void leaveSlot(Job job) {
@@ -722,7 +718,6 @@ public final class Jobs extends JavaPlugin {
 
 	/**
 	 * Gets the permission handler
-	 * 
 	 * @return the permission handler
 	 */
 	public static PermissionHandler getPermissionHandler() {
@@ -739,7 +734,6 @@ public final class Jobs extends JavaPlugin {
 
 	/**
 	 * Sets the economy handler
-	 * 
 	 * @param eco - the economy handler
 	 */
 	public static void setEconomy(Economy eco) {
@@ -752,7 +746,6 @@ public final class Jobs extends JavaPlugin {
 
 	/**
 	 * Gets the economy handler
-	 * 
 	 * @return the economy handler
 	 */
 	public static BufferedEconomy getEconomy() {
@@ -765,7 +758,6 @@ public final class Jobs extends JavaPlugin {
 
 	/**
 	 * Gets the version check manager
-	 * 
 	 * @return the version check manager
 	 */
 	public static VersionChecker getVersionCheckManager() {
@@ -952,13 +944,6 @@ public final class Jobs extends JavaPlugin {
 
 		dao.loadPlayerData();
 
-		// Load active boosts from file
-		try {
-			BoostManager.loadBoosts();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-
 		// Schedule
 		if (getGCManager().enableSchedule) {
 			try {
@@ -979,13 +964,6 @@ public final class Jobs extends JavaPlugin {
 
 		if (dao != null && Jobs.getGeneralConfigManager().ExploreSaveIntoDatabase)
 			dao.saveExplore();
-
-		// Save active boosts before shutdown
-		try {
-			BoostManager.saveBoosts();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
 
 		BlockOwnerShip.onDisable();
 
@@ -1022,11 +1000,10 @@ public final class Jobs extends JavaPlugin {
 	}
 
 	/**
-	 * Perform an action for the given {@link JobsPlayer} with the given action
-	 * info.
+	 * Perform an action for the given {@link JobsPlayer} with the given action info.
 	 * 
 	 * @param jPlayer {@link JobsPlayer}
-	 * @param info    {@link ActionInfo}
+	 * @param info {@link ActionInfo}
 	 * @see #action(JobsPlayer, ActionInfo, Block, Entity, LivingEntity)
 	 */
 	public static void action(JobsPlayer jPlayer, ActionInfo info) {
@@ -1034,12 +1011,11 @@ public final class Jobs extends JavaPlugin {
 	}
 
 	/**
-	 * Perform an action for the given {@link JobsPlayer} with the given action info
-	 * and block.
+	 * Perform an action for the given {@link JobsPlayer} with the given action info and block.
 	 * 
 	 * @param jPlayer {@link JobsPlayer}
-	 * @param info    {@link ActionInfo}
-	 * @param block   {@link Block}
+	 * @param info {@link ActionInfo}
+	 * @param block {@link Block}
 	 * @see #action(JobsPlayer, ActionInfo, Block, Entity, LivingEntity)
 	 */
 	public static void action(JobsPlayer jPlayer, ActionInfo info, Block block) {
@@ -1047,12 +1023,11 @@ public final class Jobs extends JavaPlugin {
 	}
 
 	/**
-	 * Perform an action for the given {@link JobsPlayer} with the given action info
-	 * and entity.
+	 * Perform an action for the given {@link JobsPlayer} with the given action info and entity.
 	 * 
 	 * @param jPlayer {@link JobsPlayer}
-	 * @param info    {@link ActionInfo}
-	 * @param ent     {@link Entity}
+	 * @param info {@link ActionInfo}
+	 * @param ent {@link Entity}
 	 * @see #action(JobsPlayer, ActionInfo, Block, Entity, LivingEntity)
 	 */
 	public static void action(JobsPlayer jPlayer, ActionInfo info, Entity ent) {
@@ -1060,13 +1035,13 @@ public final class Jobs extends JavaPlugin {
 	}
 
 	/**
-	 * Perform an action for the given {@link JobsPlayer} with the given action
-	 * info, entity and living entity.
+	 * Perform an action for the given {@link JobsPlayer} with the given action info,
+	 * entity and living entity.
 	 * 
 	 * @param jPlayer {@link JobsPlayer}
-	 * @param info    {@link ActionInfo}
-	 * @param ent     {@link Entity}
-	 * @param victim  {@link LivingEntity}
+	 * @param info {@link ActionInfo}
+	 * @param ent {@link Entity}
+	 * @param victim {@link LivingEntity}
 	 * @see #action(JobsPlayer, ActionInfo, Block, Entity, LivingEntity)
 	 */
 	public static void action(JobsPlayer jPlayer, ActionInfo info, Entity ent, LivingEntity victim) {
@@ -1078,23 +1053,21 @@ public final class Jobs extends JavaPlugin {
 	 * <p>
 	 * The process:
 	 * <p>
-	 * If the player does not have any job progression cached into memory, the
-	 * player only retrieve the "noneJob" by default. This means that there will be
-	 * no any extra income calculations and the player does no get the full income
-	 * from jobs, but the half of it.<br>
-	 * In other cases if player have at least 1 job cached, they will get the full
-	 * income with the extra calculated multiplications including bonuses and
-	 * limits.
+	 * If the player does not have any job progression cached into memory, the player
+	 * only retrieve the "noneJob" by default. This means that there will be no any
+	 * extra income calculations and the player does no get the full income from jobs,
+	 * but the half of it.<br>
+	 * In other cases if player have at least 1 job cached, they will get the full income
+	 * with the extra calculated multiplications including bonuses and limits.
 	 * <p>
 	 * 
-	 * <b>This usually not be called in your code, to avoid misbehaviour working
-	 * ability.</b>
+	 * <b>This usually not be called in your code, to avoid misbehaviour working ability.</b>
 	 * 
 	 * @param jPlayer {@link JobsPlayer}
-	 * @param info    {@link ActionInfo}
-	 * @param ent     {@link Entity}
-	 * @param victim  {@link LivingEntity}
-	 * @param block   {@link Block}
+	 * @param info {@link ActionInfo}
+	 * @param ent {@link Entity}
+	 * @param victim {@link LivingEntity}
+	 * @param block {@link Block}
 	 */
 	public static void action(JobsPlayer jPlayer, ActionInfo info, Block block, Entity ent, LivingEntity victim) {
 		if (jPlayer == null)
@@ -1102,7 +1075,7 @@ public final class Jobs extends JavaPlugin {
 
 		List<JobProgression> progression = jPlayer.getJobProgression();
 		int numjobs = progression.size();
-
+		
 		if (!Jobs.getGCManager().useBlockProtectionBlockTracker && !Jobs.getExploitManager().isProtectionValidAddIfNotExists(jPlayer, info, block, true))
 			return;
 
@@ -1118,8 +1091,8 @@ public final class Jobs extends JavaPlugin {
 			if (jobinfo == null)
 				return;
 
-			double income = jobinfo.getIncome(1, numjobs, jPlayer.maxJobsEquation);
-			double pointAmount = jobinfo.getPoints(1, numjobs, jPlayer.maxJobsEquation);
+			double income = jobinfo.getIncome(jPlayer, 1, numjobs, jPlayer.maxJobsEquation);
+			double pointAmount = jobinfo.getPoints(jPlayer, 1, numjobs, jPlayer.maxJobsEquation);
 
 			if (income == 0D && pointAmount == 0D)
 				return;
@@ -1201,7 +1174,7 @@ public final class Jobs extends JavaPlugin {
 
 			// FinalPayment event
 			CMIScheduler.runTaskAsynchronously(getInstance(), () -> Bukkit.getServer().getPluginManager().callEvent(new JobsInstancePaymentEvent(jPlayer.getPlayer(), payments)));
-			payOut(jPlayer, payments);
+			economy.pay(jPlayer, payments);
 
 			if (gConfigManager.LoggingUse) {
 				Map<CurrencyType, Double> amounts = new HashMap<>();
@@ -1227,9 +1200,9 @@ public final class Jobs extends JavaPlugin {
 					continue;
 				}
 
-				double income = jobinfo.getIncome(prog.getLevel(), numjobs, jPlayer.maxJobsEquation);
-				double pointAmount = jobinfo.getPoints(prog.getLevel(), numjobs, jPlayer.maxJobsEquation);
-				double expAmount = jobinfo.getExperience(prog.getLevel(), numjobs, jPlayer.maxJobsEquation);
+				double income = jobinfo.getIncome(jPlayer, prog.getLevel(), numjobs, jPlayer.maxJobsEquation);
+				double pointAmount = jobinfo.getPoints(jPlayer, prog.getLevel(), numjobs, jPlayer.maxJobsEquation);
+				double expAmount = jobinfo.getExperience(jPlayer, prog.getLevel(), numjobs, jPlayer.maxJobsEquation);
 
 				if (income == 0D && pointAmount == 0D && expAmount == 0D)
 					continue;
@@ -1238,10 +1211,10 @@ public final class Jobs extends JavaPlugin {
 					Player player = jPlayer.getPlayer();
 					if (player != null) {
 						/*
-						 * Minecraft experience is calculated in whole numbers only. Calculate the
-						 * fraction of an experience point and perform a dice roll. That way jobs that
-						 * give fractions of experience points will slowly give experience in the
-						 * aggregate
+						 * Minecraft experience is calculated in whole numbers only.
+						 * Calculate the fraction of an experience point and perform a dice roll.
+						 * That way jobs that give fractions of experience points will slowly give
+						 * experience in the aggregate
 						 */
 						int expInt = (int) expAmount;
 						double remainder = expAmount - expInt;
@@ -1371,8 +1344,7 @@ public final class Jobs extends JavaPlugin {
 				// FinalPayment event
 				CMIScheduler.runTaskAsynchronously(getInstance(), () -> Bukkit.getServer().getPluginManager().callEvent(new JobsInstancePaymentEvent(jPlayer.getPlayer(), payments)));
 
-				payOut(jPlayer, payments);
-
+				economy.pay(jPlayer, payments);
 				int oldLevel = prog.getLevel();
 
 				if (gConfigManager.LoggingUse) {
@@ -1387,7 +1359,7 @@ public final class Jobs extends JavaPlugin {
 					getPlayerManager().performLevelUp(jPlayer, prog.getJob(), oldLevel);
 			}
 
-			// need to update bp
+			//need to update bp
 			if (block != null && !Jobs.getGCManager().useBlockProtectionBlockTracker) {
 				BlockProtection bp = null;
 				if (Jobs.getGCManager().useNewBlockProtection) {
@@ -1458,7 +1430,8 @@ public final class Jobs extends JavaPlugin {
 		payment.set(CurrencyType.MONEY, jobsPrePaymentEvent.getAmount());
 		payment.set(CurrencyType.POINTS, jobsPrePaymentEvent.getPoints());
 
-		JobsExpGainEvent jobsExpGainEvent = new JobsExpGainEvent(payment.getOfflinePlayer(), job, expPayment, block, ent, victim, info);
+		JobsExpGainEvent jobsExpGainEvent = new JobsExpGainEvent(payment.getOfflinePlayer(), job, expPayment,
+			block, ent, victim, info);
 		Bukkit.getServer().getPluginManager().callEvent(jobsExpGainEvent);
 		// If event is canceled, don't do anything
 		if (jobsExpGainEvent.isCancelled())
@@ -1479,7 +1452,7 @@ public final class Jobs extends JavaPlugin {
 		if (limited)
 			return;
 
-		payOut(jPlayer, payment);
+		economy.pay(jPlayer, payment.getPayment());
 
 		JobProgression prog = jPlayer.getJobProgression(job);
 		int oldLevel = prog.getLevel();
@@ -1490,20 +1463,6 @@ public final class Jobs extends JavaPlugin {
 
 		if (prog.addExperience(expPayment))
 			getPlayerManager().performLevelUp(jPlayer, prog.getJob(), oldLevel);
-	}
-
-	private static void payOut(JobsPlayer jPlayer, BufferedPayment payment) {
-		if (getEconomy() == null || payment == null)
-			return;
-
-		payOut(jPlayer, payment.getPayment());
-	}
-
-	private static void payOut(JobsPlayer jPlayer, Map<CurrencyType, Double> payments) {
-		if (getEconomy() == null || payments == null)
-			return;
-
-		getEconomy().pay(jPlayer, payments);
 	}
 
 	public static SelectionManager getSelectionManager() {

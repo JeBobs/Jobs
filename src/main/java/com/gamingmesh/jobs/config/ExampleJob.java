@@ -102,6 +102,8 @@ public class ExampleJob {
             "  maxjobs - the number of jobs the player have max",
             "  baseincome - the income for the action at level 1 (as set in the configuration).",
             "  joblevel - the level the player has attained in the job.",
+            "  curve_<curveName> - Curvature multiplier (Y) for that curve (e.g., curve_movement).",
+            "  curve_<curveName>_x - Curvature raw X value for that curve (e.g., curve_movement_x).",
             "NOTE: Please take care of the brackets when modifying this equation.");
         cfg.get(pt + ".income-progression-equation", "baseincome+(baseincome*(joblevel-1)*0.01)-((baseincome+(joblevel-1)*0.01) * ((numjobs-1)*0.05))");
 
@@ -111,6 +113,8 @@ public class ExampleJob {
             "  maxjobs - the number of jobs the player have max",
             "  basepoints - the points for the action at level 1 (as set in the configuration).",
             "  joblevel - the level the player has attained in the job.",
+            "  curve_<curveName> - Curvature multiplier (Y) for that curve (e.g., curve_playtime).",
+            "  curve_<curveName>_x - Curvature raw X value for that curve (e.g., curve_playtime_x).",
             "NOTE: Please take care of the brackets when modifying this equation.");
         cfg.get(pt + ".points-progression-equation", "basepoints+(basepoints*(joblevel-1)*0.01)-((basepoints+(joblevel-1)*0.01) * ((numjobs-1)*0.05))");
 
@@ -120,6 +124,8 @@ public class ExampleJob {
             "  maxjobs - the number of jobs the player have max",
             "  baseexperience - the experience for the action at level 1 (as set in the configuration).",
             "  joblevel - the level the player has attained in the job.",
+            "  curve_<curveName> - Curvature multiplier (Y) for that curve (e.g., curve_kills).",
+            "  curve_<curveName>_x - Curvature raw X value for that curve (e.g., curve_kills_x).",
             "NOTE: Please take care of the brackets when modifying this equation.");
         cfg.get(pt + ".experience-progression-equation", "basepoints+(basepoints*(joblevel-1)*0.01)-((basepoints+(joblevel-1)*0.01) * ((numjobs-1)*0.05))");
 

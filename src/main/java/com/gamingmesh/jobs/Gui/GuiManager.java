@@ -438,16 +438,16 @@ public class GuiManager {
 					}
 				}
 
-				double income = jInfo.getIncome(level, numjobs, jPlayer.maxJobsEquation);
+				double income = jInfo.getIncome(jPlayer, level, numjobs, jPlayer.maxJobsEquation);
 
 				income = boost.getFinalAmount(CurrencyType.MONEY, income);
 				String incomeColor = income >= 0 ? "" : CMIChatColor.DARK_RED.toString();
 
-				double xp = jInfo.getExperience(level, numjobs, jPlayer.maxJobsEquation);
+				double xp = jInfo.getExperience(jPlayer, level, numjobs, jPlayer.maxJobsEquation);
 				xp = boost.getFinalAmount(CurrencyType.EXP, xp);
 				String xpColor = xp >= 0 ? "" : CMIChatColor.GRAY.toString();
 
-				double points = jInfo.getPoints(level, numjobs, jPlayer.maxJobsEquation);
+				double points = jInfo.getPoints(jPlayer, level, numjobs, jPlayer.maxJobsEquation);
 				points = boost.getFinalAmount(CurrencyType.POINTS, points);
 				String pointsColor = points >= 0 ? "" : CMIChatColor.RED.toString();
 

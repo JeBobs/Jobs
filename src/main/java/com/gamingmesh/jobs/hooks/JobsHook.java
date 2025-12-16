@@ -16,10 +16,22 @@ import com.gamingmesh.jobs.hooks.pyroFishingPro.PyroFishingProListener;
 import com.gamingmesh.jobs.hooks.stackMob.StackMobManager;
 import com.gamingmesh.jobs.hooks.wildStacker.WildStackerHandler;
 import com.gamingmesh.jobs.listeners.JobsCustomFishingPaymentListener;
+import com.gamingmesh.jobs.hooks.Curvature.CurvatureHook;
 
 import net.Zrips.CMILib.Messages.CMIMessages;
 
 public enum JobsHook {
+    Curvature {
+        @Override
+        protected boolean init() {
+            if (!isPresent())
+                return false;
+
+            JobsHook.curvatureHook = new CurvatureHook();
+            printDetectedMessage(this);
+            return true;
+        }
+    },
     MyPet {
         @Override
         protected boolean init() {
@@ -217,6 +229,7 @@ public enum JobsHook {
     private static StackMobManager stackMobHandler;
     private static WildStackerHandler wildStackerHandler;
     private static BlockTrackerManager blockTrackerManager;
+    private static CurvatureHook curvatureHook;
 
     public static void loadHooks() {
         for (JobsHook one : JobsHook.values()) {
@@ -251,5 +264,9 @@ public enum JobsHook {
 
     public static BlockTrackerManager getBlockTrackerManager() {
         return blockTrackerManager;
+    }
+
+    public static CurvatureHook getCurvatureHook() {
+        return curvatureHook;
     }
 }

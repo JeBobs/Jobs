@@ -1044,8 +1044,8 @@ public class JobsPlayer {
             JobInfo jobinfo = Jobs.getNoneJob().getJobInfo(info, 1);
             if (jobinfo == null)
                 return false;
-            double income = jobinfo.getIncome(1, numjobs, maxJobsEquation);
-            double points = jobinfo.getPoints(1, numjobs, maxJobsEquation);
+            double income = jobinfo.getIncome(this, 1, numjobs, maxJobsEquation);
+            double points = jobinfo.getPoints(this, 1, numjobs, maxJobsEquation);
             if (income == 0D && points == 0D)
                 return false;
         }
@@ -1056,9 +1056,9 @@ public class JobsPlayer {
             if (jobinfo == null)
                 continue;
 
-            double income = jobinfo.getIncome(level, numjobs, maxJobsEquation);
-            double pointAmount = jobinfo.getPoints(level, numjobs, maxJobsEquation);
-            double expAmount = jobinfo.getExperience(level, numjobs, maxJobsEquation);
+            double income = jobinfo.getIncome(this, level, numjobs, maxJobsEquation);
+            double pointAmount = jobinfo.getPoints(this, level, numjobs, maxJobsEquation);
+            double expAmount = jobinfo.getExperience(this, level, numjobs, maxJobsEquation);
             if (income != 0D || pointAmount != 0D || expAmount != 0D)
                 return true;
         }
